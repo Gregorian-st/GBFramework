@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="NotoSans-Bold.ttf">
+            <string>NotoSans-Bold</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Menu View Controller-->
+        <scene sceneID="dsj-93-2Pr">
+            <objects>
+                <viewController storyboardIdentifier="MenuViewController" id="Gpi-aC-j5f" customClass="MenuViewController" customModule="GBFramework" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lXj-tn-LjV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ex9-Jp-kXv">
+                                <rect key="frame" x="107" y="404" width="200" height="88"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kYF-a8-AeB" userLabel="GMapButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="40"/>
+                                        <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="R9j-EZ-wqw"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="15"/>
+                                        <state key="normal" title="Google Map">
+                                            <color key="titleColor" systemColor="systemBackgroundColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="gMapButtonTapped:" destination="Gpi-aC-j5f" eventType="touchUpInside" id="Cro-Hw-D0K"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uz0-bk-hwp" userLabel="LogoutButton">
+                                        <rect key="frame" x="0.0" y="48" width="200" height="40"/>
+                                        <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="8c6-Ae-O8J"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="15"/>
+                                        <state key="normal" title="Logout">
+                                            <color key="titleColor" systemColor="systemBackgroundColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="logoutButtonTapped:" destination="Gpi-aC-j5f" eventType="touchUpInside" id="BoR-Oe-dRe"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="ZlP-ji-bsu"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="etf-ze-Iu8"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ex9-Jp-kXv" firstAttribute="centerY" secondItem="lXj-tn-LjV" secondAttribute="centerY" id="HIh-R1-wb8"/>
+                            <constraint firstItem="ex9-Jp-kXv" firstAttribute="centerX" secondItem="lXj-tn-LjV" secondAttribute="centerX" id="aLO-RB-fAh"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="gMapButton" destination="kYF-a8-AeB" id="fUL-91-d1k"/>
+                        <outlet property="loginButton" destination="Uz0-bk-hwp" id="sp5-ry-BIR"/>
+                        <outlet property="router" destination="Tjm-1C-Jsc" id="Lea-iv-ybb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ii3-aJ-x32" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <customObject id="Tjm-1C-Jsc" customClass="MainRouter" customModule="GBFramework" customModuleProvider="target">
+                    <connections>
+                        <outlet property="controller" destination="Gpi-aC-j5f" id="uuJ-wo-eOX"/>
+                    </connections>
+                </customObject>
+            </objects>
+            <point key="canvasLocation" x="123" y="116"/>
+        </scene>
+        <!--Google Map-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController storyboardIdentifier="GMapViewController" id="BYZ-38-t0r" customClass="GMapViewController" customModule="GBFramework" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="stH-Cx-49K" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="stH-Cx-49K" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="GZL-lz-ht5"/>
+                            <constraint firstItem="stH-Cx-49K" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="HCH-VG-K89"/>
+                            <constraint firstItem="stH-Cx-49K" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Sdv-RI-2sy"/>
+                            <constraint firstAttribute="bottom" secondItem="stH-Cx-49K" secondAttribute="bottom" id="kzA-DO-FeC"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Google Map" id="mHH-FU-idZ">
+                        <rightBarButtonItems>
+                            <barButtonItem title="START" id="kUC-Uu-tTS">
+                                <imageReference key="image" image="play.circle" catalog="system" symbolScale="large" renderingMode="original"/>
+                                <connections>
+                                    <action selector="startStopTrackButtonTapped:" destination="BYZ-38-t0r" id="1F3-eN-lS1"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Last" id="y7k-ph-JpR">
+                                <connections>
+                                    <action selector="loadLastTrackButtonTapped:" destination="BYZ-38-t0r" id="KfF-VN-cgz"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="loadLastTrackButton" destination="y7k-ph-JpR" id="cp5-nX-U5w"/>
+                        <outlet property="mapView" destination="stH-Cx-49K" id="oj1-mN-Gdb"/>
+                        <outlet property="startStopTrackButton" destination="kUC-Uu-tTS" id="yMD-A2-bIb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1100" y="116"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="play.circle" catalog="system" width="128" height="121"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
