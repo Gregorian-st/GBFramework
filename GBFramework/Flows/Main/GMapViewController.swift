@@ -7,13 +7,13 @@
 
 import UIKit
 import GoogleMaps
+import RxSwift
 
 class GMapViewController: UIViewController {
     
-    private let locationManager = CLLocationManager()
-    private var isLocationServiceEnabled = false
+    private let locationManager = LocationManager.instance
+    private let disposeBag = DisposeBag()
     private var lastZoom = GMapConfig.defaultZoom
-    private var lastSpeed: Double = 0
     private let speedLabel = UILabel()
     
     private var route: GMSPolyline?
@@ -44,8 +44,8 @@ class GMapViewController: UIViewController {
     
     @IBAction func startStopTrackButtonTapped(_ sender: UIBarButtonItem) {
         
-        if !isLocationServiceEnabled {
-            isLocationServiceEnabled = checkLocationStatus()
+        if !locationManager.isLocationServiceEnabled {
+            _ = locationManager.checkLocationStatus()
             return
         }
         if isTrackingPosition {
@@ -71,8 +71,35 @@ class GMapViewController: UIViewController {
         configureLocationManager()
         setupUI()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        super.viewWillDisappear(animated)
+        locationManager.stopUpdatingLocation()
+    }
 
     // MARK: - App Logic
+    
+    private func configureLocationManager() {
+        
+        locationManager.userSpeed.subscribe(onNext: { speed in
+            if self.isTrackingPosition {
+                self.updateSpeed(speed: speed)
+            }
+        })
+        .disposed(by: disposeBag)
+        
+        locationManager.userLocation.subscribe(onNext: { location in
+            if self.isTrackingPosition {
+                self.addRoutePathPoint(at: location.coordinate, centered: true)
+                if self.addStartMarkFlag {
+                    self.addMark(at: location.coordinate, colored: .systemGreen, centered: false)
+                    self.addStartMarkFlag = false
+                }
+            }
+        })
+        .disposed(by: disposeBag)
+    }
     
     private func setupNavigationBar() {
         
@@ -205,30 +232,6 @@ class GMapViewController: UIViewController {
         speedLabel.isHidden = true
     }
     
-    private func configureLocationManager() {
-        
-        isLocationServiceEnabled = checkLocationStatus()
-        locationManager.delegate = self
-        locationManager.allowsBackgroundLocationUpdates = true
-        locationManager.startMonitoringSignificantLocationChanges()
-    }
-    
-    private func checkLocationStatus() -> Bool {
-        
-        let locationStatus = locationManager.authorizationStatus
-        switch locationStatus {
-        case .notDetermined:
-            locationManager.requestAlwaysAuthorization()
-        case .restricted, .denied:
-            print("Access to location services is denied")
-        case .authorizedAlways, .authorizedWhenInUse:
-            return true
-        @unknown default:
-            break
-        }
-        return false
-    }
-    
     private func addMark(at coordinate: CLLocationCoordinate2D, colored color: UIColor, centered: Bool) {
         
         let cameraPosition = GMSCameraPosition(target: coordinate, zoom: lastZoom)
@@ -248,13 +251,6 @@ class GMapViewController: UIViewController {
         }
         routePath?.add(coordinate)
         route?.path = routePath
-    }
-    
-    private func updateSpeed(speed: Double) {
-        
-        let speedKMH = speed / 1000 * 3600
-        speedLabel.text = "Speed: \(String(format: "%.2f", speedKMH)) km/h"
-        speedLabel.isHidden = Int(speed) <= 0
     }
     
     private func showLastRoute() -> Bool {
@@ -279,32 +275,12 @@ class GMapViewController: UIViewController {
         updateSpeed(speed: 0)
         return true
     }
-}
-
-// MARK: - CLLocationManagerDelegate
-
-extension GMapViewController: CLLocationManagerDelegate {
     
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+    private func updateSpeed(speed: Double) {
         
-        isLocationServiceEnabled = checkLocationStatus()
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        guard let location = locations.last
-        else {
-            return
-        }
-        if isTrackingPosition {
-            addRoutePathPoint(at: location.coordinate, centered: true)
-            if addStartMarkFlag {
-                addMark(at: location.coordinate, colored: .systemGreen, centered: false)
-                addStartMarkFlag = false
-            }
-            lastSpeed = location.speed
-            updateSpeed(speed: lastSpeed)
-        }
+        let speedKMH = speed / 1000 * 3600
+        speedLabel.text = "Speed: \(String(format: "%.2f", speedKMH)) km/h"
+        speedLabel.isHidden = Int(speed) <= 0
     }
 }
 
