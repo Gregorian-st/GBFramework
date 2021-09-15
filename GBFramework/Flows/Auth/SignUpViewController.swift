@@ -6,29 +6,77 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class SignUpViewController: UIViewController {
     
     lazy var dataService = CoreDataService()
+    let disposeBag = DisposeBag()
     
     // MARK: - Outlets
+    @IBOutlet weak var loginTextFootnote: UILabel!
+    @IBOutlet weak var passwordTextFootnote: UILabel!
+    @IBOutlet weak var repeatPasswordTextFootnote: UILabel!
     
     @IBOutlet weak var loginTextField: UITextField! {
         didSet {
             loginTextField.tag = 1
             loginTextField.delegate = self
+            loginTextField
+                .rx
+                .controlEvent(.editingChanged)
+                .withLatestFrom(loginTextField.rx.text.orEmpty)
+                .subscribe(onNext: { text in
+                    if text.trimmingCharacters(in: [" "]).isEmpty {
+                        self.loginTextFootnote.textColor = .systemRed
+                        self.loginTextFootnote.text = "𐄂 Field is empty"
+                    } else {
+                        self.loginTextFootnote.textColor = .systemGreen
+                        self.loginTextFootnote.text = "✓ Field is not empty"
+                    }
+                })
+                .disposed(by: disposeBag)
         }
     }
     @IBOutlet weak var passwordTextField: UITextField! {
         didSet {
             passwordTextField.tag = 2
             passwordTextField.delegate = self
+            passwordTextField
+                .rx
+                .controlEvent(.editingChanged)
+                .withLatestFrom(passwordTextField.rx.text.orEmpty)
+                .subscribe(onNext: { text in
+                    if text.trimmingCharacters(in: [" "]).count < SecurityConfig.minPasswordLength {
+                        self.passwordTextFootnote.textColor = .systemRed
+                        self.passwordTextFootnote.text = "𐄂 Password length is less than \(SecurityConfig.minPasswordLength) characters"
+                    } else {
+                        self.passwordTextFootnote.textColor = .systemGreen
+                        self.passwordTextFootnote.text = "✓ Password length is ok"
+                    }
+                })
+                .disposed(by: disposeBag)
         }
     }
     @IBOutlet weak var repeatPasswordTextField: UITextField! {
         didSet {
             repeatPasswordTextField.tag = 3
             repeatPasswordTextField.delegate = self
+            repeatPasswordTextField
+                .rx
+                .controlEvent(.editingChanged)
+                .withLatestFrom(repeatPasswordTextField.rx.text.orEmpty)
+                .subscribe(onNext: { text in
+                    if text.trimmingCharacters(in: [" "]).count < SecurityConfig.minPasswordLength {
+                        self.repeatPasswordTextFootnote.textColor = .systemRed
+                        self.repeatPasswordTextFootnote.text = "𐄂 Field is not matching 'Password' field"
+                    } else {
+                        self.repeatPasswordTextFootnote.textColor = .systemGreen
+                        self.repeatPasswordTextFootnote.text = "✓ Field is matching 'Password' field"
+                    }
+                })
+                .disposed(by: disposeBag)
         }
     }
     @IBOutlet weak var registerButton: UIButton! {

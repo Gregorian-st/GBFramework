@@ -7,6 +7,8 @@ target 'GBFramework' do
 
   # Pods for GBFramework
   pod 'GoogleMaps'
+  pod 'RxSwift', '6.2.0'
+  pod 'RxCocoa', '6.2.0'
 
 end
 

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		DBFACFB5D02AB197D7FB0B7E /* Pods_GBFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17F22702373C0AEF4B790D8A /* Pods_GBFramework.framework */; };
+		F42DB43326E4C1A600444035 /* SecurityConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42DB43226E4C1A600444035 /* SecurityConfig.swift */; };
+		F42DB43526E4E46300444035 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42DB43426E4E46300444035 /* LocationManager.swift */; };
 		F454D3A226D8119F00DCD27D /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F454D3A126D8119F00DCD27D /* CoreDataService.swift */; };
 		F474FCE226D7E330008DEA6B /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F474FCE126D7E330008DEA6B /* MainRouter.swift */; };
 		F49064B526D529F200D9C232 /* GBFramework.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F49064B326D529F200D9C232 /* GBFramework.xcdatamodeld */; };
@@ -34,6 +36,11 @@
 		17F22702373C0AEF4B790D8A /* Pods_GBFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GBFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CEC0B0D3108B78C16BDA573 /* Pods-GBFramework.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GBFramework.debug.xcconfig"; path = "Target Support Files/Pods-GBFramework/Pods-GBFramework.debug.xcconfig"; sourceTree = "<group>"; };
 		D886BB21960ABCCB6E13A9FC /* Pods-GBFramework.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GBFramework.release.xcconfig"; path = "Target Support Files/Pods-GBFramework/Pods-GBFramework.release.xcconfig"; sourceTree = "<group>"; };
+		F42DB42826E2460700444035 /* RxCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F42DB42926E2460700444035 /* RxRelay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxRelay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F42DB42A26E2460700444035 /* RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F42DB43226E4C1A600444035 /* SecurityConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityConfig.swift; sourceTree = "<group>"; };
+		F42DB43426E4E46300444035 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		F454D3A126D8119F00DCD27D /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		F474FCE126D7E330008DEA6B /* MainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRouter.swift; sourceTree = "<group>"; };
 		F49064B426D529F200D9C232 /* GBFramework.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GBFramework.xcdatamodel; sourceTree = "<group>"; };
@@ -73,6 +80,9 @@
 		BFE28B5EB71F6B205CCAEBD3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F42DB42826E2460700444035 /* RxCocoa.framework */,
+				F42DB42926E2460700444035 /* RxRelay.framework */,
+				F42DB42A26E2460700444035 /* RxSwift.framework */,
 				17F22702373C0AEF4B790D8A /* Pods_GBFramework.framework */,
 			);
 			name = Frameworks;
@@ -100,6 +110,7 @@
 			children = (
 				F49064B826D551DA00D9C232 /* Alerting.swift */,
 				F49064CA26D7A95400D9C232 /* BaseRouter.swift */,
+				F42DB43426E4E46300444035 /* LocationManager.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -150,6 +161,7 @@
 				F49064B326D529F200D9C232 /* GBFramework.xcdatamodeld */,
 				F4909E6326CE7A430064CDD0 /* GMapConfig.swift */,
 				F49064B626D52B1400D9C232 /* GMapStoredPath.swift */,
+				F42DB43226E4C1A600444035 /* SecurityConfig.swift */,
 				F49064BB26D7A22000D9C232 /* User.swift */,
 			);
 			path = Model;
@@ -209,6 +221,7 @@
 				F4F8247B26CD5A5300878FC1 /* Frameworks */,
 				F4F8247C26CD5A5300878FC1 /* Resources */,
 				2DFB011DE82F96C45A01D2B9 /* [CP] Copy Pods Resources */,
+				85E022816A201505B57C62EF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -282,6 +295,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GBFramework/Pods-GBFramework-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		85E022816A201505B57C62EF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GBFramework/Pods-GBFramework-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GBFramework/Pods-GBFramework-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GBFramework/Pods-GBFramework-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		EF44C24DF67CDC36F2A1CCE3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -320,6 +350,7 @@
 				F474FCE226D7E330008DEA6B /* MainRouter.swift in Sources */,
 				F49064BD26D7A22000D9C232 /* User.swift in Sources */,
 				F49064C926D7A59800D9C232 /* MenuViewController.swift in Sources */,
+				F42DB43326E4C1A600444035 /* SecurityConfig.swift in Sources */,
 				F49064C726D7A50B00D9C232 /* SignUpViewController.swift in Sources */,
 				F4F8248226CD5A5300878FC1 /* AppDelegate.swift in Sources */,
 				F4BE33C826DCE1530048224E /* UIView+Blur.swift in Sources */,
@@ -327,6 +358,7 @@
 				F4909E6426CE7A430064CDD0 /* GMapConfig.swift in Sources */,
 				F4F8248426CD5A5300878FC1 /* SceneDelegate.swift in Sources */,
 				F49064B926D551DA00D9C232 /* Alerting.swift in Sources */,
+				F42DB43526E4E46300444035 /* LocationManager.swift in Sources */,
 				F49064B726D52B1400D9C232 /* GMapStoredPath.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

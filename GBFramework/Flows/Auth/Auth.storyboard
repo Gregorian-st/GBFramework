@@ -123,10 +123,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="JBj-pI-VKX">
-                                <rect key="frame" x="40" y="129" width="334" height="185"/>
+                                <rect key="frame" x="40" y="129" width="334" height="237.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="ptq-QM-iqX">
-                                        <rect key="frame" x="0.0" y="0.0" width="334" height="55"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="334" height="72.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Login:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tbF-KM-obS" userLabel="LoginLabel">
                                                 <rect key="frame" x="0.0" y="0.0" width="334" height="18"/>
@@ -140,10 +140,16 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="𐄂 Field is empty" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YCe-h0-lqb" userLabel="LoginLabelFootnote">
+                                                <rect key="frame" x="0.0" y="58" width="334" height="14.5"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                <color key="textColor" systemColor="systemRedColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="AP9-W0-1PX">
-                                        <rect key="frame" x="0.0" y="65" width="334" height="55"/>
+                                        <rect key="frame" x="0.0" y="82.5" width="334" height="72.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mL3-aK-kd1" userLabel="PasswordLabel">
                                                 <rect key="frame" x="0.0" y="0.0" width="334" height="18"/>
@@ -157,10 +163,16 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES" textContentType="password"/>
                                             </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="𐄂 Field is empty" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rdd-Bv-Z4o" userLabel="PasswordLabelFootnote">
+                                                <rect key="frame" x="0.0" y="58" width="334" height="14.5"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                <color key="textColor" systemColor="systemRedColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="eEJ-8H-U7V">
-                                        <rect key="frame" x="0.0" y="130" width="334" height="55"/>
+                                        <rect key="frame" x="0.0" y="165" width="334" height="72.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Repeat Password:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jma-xI-irN" userLabel="RepeatPasswordLabel">
                                                 <rect key="frame" x="0.0" y="0.0" width="334" height="18"/>
@@ -174,12 +186,18 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES" textContentType="password"/>
                                             </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="𐄂 Field is not matching 'Password' field" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JFd-A2-Xn4" userLabel="RepeatPasswordLabelFootnote">
+                                                <rect key="frame" x="0.0" y="58" width="334" height="14.5"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                <color key="textColor" systemColor="systemRedColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                     </stackView>
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sp4-CW-jnf" userLabel="RegisterButton">
-                                <rect key="frame" x="107" y="334" width="200" height="40"/>
+                                <rect key="frame" x="107" y="386.5" width="200" height="40"/>
                                 <color key="backgroundColor" systemColor="systemBlueColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="Ek6-hE-RbR"/>
@@ -209,9 +227,12 @@
                     </view>
                     <connections>
                         <outlet property="loginTextField" destination="GMV-rr-bp5" id="PIz-vH-gi8"/>
+                        <outlet property="loginTextFootnote" destination="YCe-h0-lqb" id="PJb-vC-2tR"/>
                         <outlet property="passwordTextField" destination="FhF-17-wBK" id="YgP-rA-Qji"/>
+                        <outlet property="passwordTextFootnote" destination="rdd-Bv-Z4o" id="RFx-Fd-ya8"/>
                         <outlet property="registerButton" destination="sp4-CW-jnf" id="ahO-DN-AP4"/>
                         <outlet property="repeatPasswordTextField" destination="S8I-8V-izG" id="BZf-7r-nBN"/>
+                        <outlet property="repeatPasswordTextFootnote" destination="JFd-A2-Xn4" id="J6R-Ph-lr7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SUH-RY-4CR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -228,6 +249,9 @@
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

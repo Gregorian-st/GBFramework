@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class LoginViewController: UIViewController {
     
     lazy var dataService = CoreDataService()
+    let disposeBag = DisposeBag()
     
     // MARK: - Outlets
     
@@ -58,9 +61,25 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        configureLoginBindings()
     }
     
     // MARK: - App Logic
+    
+    private func configureLoginBindings() {
+        
+        Observable
+            .combineLatest(
+                usernameTextField.rx.text,
+                passwordTextField.rx.text)
+            .map { username, password in
+                return !(username ?? "").trimmingCharacters(in: [" "]).isEmpty && (password ?? "").count >= SecurityConfig.minPasswordLength
+            }
+            .bind { [weak loginButton] isValidLoginInput in
+                loginButton?.isEnabled = isValidLoginInput
+            }
+            .disposed(by: disposeBag)
+    }
     
     private func login() {
         
