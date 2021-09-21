@@ -25,6 +25,7 @@
 		F49064CF26D7B73200D9C232 /* AuthRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49064CE26D7B73200D9C232 /* AuthRouter.swift */; };
 		F4909E6426CE7A430064CDD0 /* GMapConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4909E6326CE7A430064CDD0 /* GMapConfig.swift */; };
 		F4BE33C826DCE1530048224E /* UIView+Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BE33C726DCE1530048224E /* UIView+Blur.swift */; };
+		F4D5E94E26F8C39D008B8F41 /* NotificationConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D5E94D26F8C39D008B8F41 /* NotificationConfig.swift */; };
 		F4F8248226CD5A5300878FC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F8248126CD5A5300878FC1 /* AppDelegate.swift */; };
 		F4F8248426CD5A5300878FC1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F8248326CD5A5300878FC1 /* SceneDelegate.swift */; };
 		F4F8248626CD5A5300878FC1 /* GMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F8248526CD5A5300878FC1 /* GMapViewController.swift */; };
@@ -56,6 +57,8 @@
 		F49064CE26D7B73200D9C232 /* AuthRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRouter.swift; sourceTree = "<group>"; };
 		F4909E6326CE7A430064CDD0 /* GMapConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GMapConfig.swift; sourceTree = "<group>"; };
 		F4BE33C726DCE1530048224E /* UIView+Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Blur.swift"; sourceTree = "<group>"; };
+		F4D5E94D26F8C39D008B8F41 /* NotificationConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationConfig.swift; sourceTree = "<group>"; };
+		F4D5E94F26F9BB63008B8F41 /* GBFramework.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GBFramework.entitlements; sourceTree = "<group>"; };
 		F4F8247E26CD5A5300878FC1 /* GBFramework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GBFramework.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4F8248126CD5A5300878FC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4F8248326CD5A5300878FC1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -161,6 +164,7 @@
 				F49064B326D529F200D9C232 /* GBFramework.xcdatamodeld */,
 				F4909E6326CE7A430064CDD0 /* GMapConfig.swift */,
 				F49064B626D52B1400D9C232 /* GMapStoredPath.swift */,
+				F4D5E94D26F8C39D008B8F41 /* NotificationConfig.swift */,
 				F42DB43226E4C1A600444035 /* SecurityConfig.swift */,
 				F49064BB26D7A22000D9C232 /* User.swift */,
 			);
@@ -197,6 +201,7 @@
 		F4F8248026CD5A5300878FC1 /* GBFramework */ = {
 			isa = PBXGroup;
 			children = (
+				F4D5E94F26F9BB63008B8F41 /* GBFramework.entitlements */,
 				F4F8248A26CD5A5400878FC1 /* Assets.xcassets */,
 				F4F8248F26CD5A5400878FC1 /* Info.plist */,
 				F4909E5F26CE65000064CDD0 /* App */,
@@ -353,6 +358,7 @@
 				F42DB43326E4C1A600444035 /* SecurityConfig.swift in Sources */,
 				F49064C726D7A50B00D9C232 /* SignUpViewController.swift in Sources */,
 				F4F8248226CD5A5300878FC1 /* AppDelegate.swift in Sources */,
+				F4D5E94E26F8C39D008B8F41 /* NotificationConfig.swift in Sources */,
 				F4BE33C826DCE1530048224E /* UIView+Blur.swift in Sources */,
 				F49064CB26D7A95400D9C232 /* BaseRouter.swift in Sources */,
 				F4909E6426CE7A430064CDD0 /* GMapConfig.swift in Sources */,
@@ -503,6 +509,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GBFramework/GBFramework.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YKX9VWS6ZS;
 				INFOPLIST_FILE = GBFramework/Info.plist;
@@ -523,6 +530,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GBFramework/GBFramework.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YKX9VWS6ZS;
 				INFOPLIST_FILE = GBFramework/Info.plist;

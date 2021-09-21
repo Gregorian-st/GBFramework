@@ -8,6 +8,7 @@
 import UIKit
 import GoogleMaps
 import RxSwift
+import MobileCoreServices
 
 class GMapViewController: UIViewController {
     
@@ -15,6 +16,7 @@ class GMapViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private var lastZoom = GMapConfig.defaultZoom
     private let speedLabel = UILabel()
+    let notificationCenter = NotificationCenter.default
     
     private var route: GMSPolyline?
     private var routePath: GMSMutablePath?
@@ -49,11 +51,10 @@ class GMapViewController: UIViewController {
             return
         }
         if isTrackingPosition {
-            stopRouteTracking()
+            stopRouteTracking(showRoute: true, saveRoute: true)
         } else {
             startRouteTracking()
         }
-        isTrackingPosition.toggle()
     }
     
     @IBAction func loadLastTrackButtonTapped(_ sender: UIBarButtonItem) {
@@ -70,12 +71,17 @@ class GMapViewController: UIViewController {
         configureGMap()
         configureLocationManager()
         setupUI()
+        prepareRecordingNotification()
+        notificationCenter.addObserver(self,
+                                       selector: #selector(stopRecording),
+                                       name: Notification.Name("StopRecording"),
+                                       object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         
         super.viewWillDisappear(animated)
-        locationManager.stopUpdatingLocation()
+        stopRouteTracking(showRoute: false, saveRoute: true)
     }
 
     // MARK: - App Logic
@@ -157,20 +163,39 @@ class GMapViewController: UIViewController {
         configureRoute(path: nil)
         addStartMarkFlag = true
         locationManager.startUpdatingLocation()
+        NotificationConfig.instance.content.title = "Route is recording"
+        isTrackingPosition = true
     }
     
-    private func stopRouteTracking() {
+    private func stopRouteTracking(showRoute: Bool, saveRoute: Bool) {
+        
+        if !isTrackingPosition {
+            return
+        }
         
         locationManager.stopUpdatingLocation()
+        
         guard let count = routePath?.count()
         else { return }
-        if count > 0 {
-            if let lastCoordinate = routePath?.coordinate(at: count - 1) {
-                addMark(at: lastCoordinate, colored: .systemRed, centered: false)
+        
+        if showRoute {
+            if count > 0 {
+                if let lastCoordinate = routePath?.coordinate(at: count - 1) {
+                    addMark(at: lastCoordinate, colored: .systemRed, centered: false)
+                }
             }
+            showFullRoute()
         }
-        showFullRoute()
-        dataService.savePath(stringPath: routePath?.encodedPath())
+        if saveRoute {
+            dataService.savePath(stringPath: routePath?.encodedPath())
+        }
+        NotificationConfig.instance.content.title = ""
+        isTrackingPosition = false
+    }
+    
+    @objc private func stopRecording() {
+        
+        stopRouteTracking(showRoute: true, saveRoute: true)
     }
     
     private func loadLastTrack() {
@@ -181,8 +206,7 @@ class GMapViewController: UIViewController {
                                               preferredStyle: UIAlertController.Style.alert)
             
             let stopAlertYesAction = UIAlertAction(title: "Yes", style: .default) { _ in
-                self.locationManager.stopUpdatingLocation()
-                self.isTrackingPosition = false
+                self.stopRouteTracking(showRoute: false, saveRoute: false)
                 if !self.showLastRoute() {
                     showAlert(alertMessage: "There is no Last Track saved!", viewController: self)
                 }
@@ -282,6 +306,44 @@ class GMapViewController: UIViewController {
         speedLabel.text = "Speed: \(String(format: "%.2f", speedKMH)) km/h"
         speedLabel.isHidden = Int(speed) <= 0
     }
+    
+    private func prepareRecordingNotification() {
+        
+        let notificationConfig = NotificationConfig.instance
+        let content = notificationConfig.content
+        
+        content.title = ""
+        content.subtitle = "Do not forget to stop recording"
+        content.body = "Location recording in the background dramatically reduces battery charge.\n\nPlease don't forget to stop recording!"
+        content.sound = UNNotificationSound.default
+        
+        let tempDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+        let tempFileURL = tempDirURL.appendingPathComponent("notification.jpeg")
+        
+        if let image = UIImage(named: "googleMaps") {
+            try? image.jpegData(compressionQuality: 1.0)?.write(to: tempFileURL)
+        }
+        do {
+            let options = [UNNotificationAttachmentOptionsTypeHintKey: kUTTypeJPEG]
+            let mapImage = try UNNotificationAttachment(identifier: "mapImage", url: tempFileURL, options: options)
+            content.attachments = [mapImage]
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        let stopRecordingAction = UNNotificationAction(identifier: notificationConfig.stopRecordingActionId,
+                                                       title: "Stop Recording",
+                                                       options: [.foreground])
+        let cancelAction = UNNotificationAction(identifier: notificationConfig.cancelActionId,
+                                                title: "Dismiss",
+                                                options: [])
+        let category = UNNotificationCategory(identifier: notificationConfig.categoryId,
+                                              actions: [stopRecordingAction, cancelAction],
+                                              intentIdentifiers: [],
+                                              options: [])
+        UNUserNotificationCenter.current().setNotificationCategories([category])
+        content.categoryIdentifier = notificationConfig.categoryId
+    }
 }
 
 // MARK: - GMSMapViewDelegate
@@ -295,4 +357,3 @@ extension GMapViewController: GMSMapViewDelegate {
         }
     }
 }
-

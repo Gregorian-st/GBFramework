@@ -13,10 +13,18 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         
         GMSServices.provideAPIKey("")
         print(getDocumentsDirectory())
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge, .provisional]) { (granted, error) in
+            if granted {
+                print("User notifications are allowed.")
+            } else {
+                print("User notifications are not allowed.")
+            }
+        }
+        UNUserNotificationCenter.current().delegate = self
         
         return true
     }
@@ -42,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Core Data stack
     
     lazy var persistentContainer: NSPersistentContainer = {
+        
         let container = NSPersistentContainer(name: "GBFramework")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
@@ -54,6 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Core Data Saving support
     
     func saveContext () {
+        
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
@@ -64,6 +74,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
 }
 
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        if response.actionIdentifier == NotificationConfig.instance.stopRecordingActionId {
+            NotificationCenter.default.post(name: Notification.Name("StopRecording"), object: nil)
+        }
+        completionHandler()
+    }
+}

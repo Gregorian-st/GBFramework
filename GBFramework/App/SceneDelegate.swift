@@ -10,6 +10,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    let notificationConfig = NotificationConfig.instance
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
@@ -32,6 +33,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         
         window?.rootViewController?.view.removeBlur()
+        
+        UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [notificationConfig.notificationRequestId])
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
@@ -40,6 +43,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             ? UIBlurEffect.Style.light
             : UIBlurEffect.Style.dark
         window?.rootViewController?.view.addBlur(alpha: 1, style: blurStyle)
+        
+        let content = notificationConfig.content
+        if content.title != "" {
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 30, repeats: false)
+            let request = UNNotificationRequest(identifier: notificationConfig.notificationRequestId,
+                                                content: content,
+                                                trigger: trigger)
+            UNUserNotificationCenter.current().add(request, withCompletionHandler:nil)
+        }
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
