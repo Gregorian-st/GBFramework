@@ -16,7 +16,10 @@ class GMapViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private var lastZoom = GMapConfig.defaultZoom
     private let speedLabel = UILabel()
-    let notificationCenter = NotificationCenter.default
+    private let notificationCenter = NotificationCenter.default
+    var avatarImage: UIImage?
+    private var resizedAvatarImage: UIImage?
+    private var avatarMarker = GMSMarker()
     
     private var route: GMSPolyline?
     private var routePath: GMSMutablePath?
@@ -71,6 +74,10 @@ class GMapViewController: UIViewController {
         configureGMap()
         configureLocationManager()
         setupUI()
+        resizedAvatarImage = prepareAvatarImage(sourceImage: avatarImage)
+        if let image = resizedAvatarImage {
+            avatarMarker.icon = image
+        }
         prepareRecordingNotification()
         notificationCenter.addObserver(self,
                                        selector: #selector(stopRecording),
@@ -103,6 +110,7 @@ class GMapViewController: UIViewController {
                     self.addStartMarkFlag = false
                 }
             }
+            self.addAvatar(at: location.coordinate)
         })
         .disposed(by: disposeBag)
     }
@@ -157,6 +165,22 @@ class GMapViewController: UIViewController {
         route?.map = mapView
     }
     
+    private func prepareAvatarImage(sourceImage: UIImage?) -> UIImage? {
+        
+        guard let image = sourceImage
+        else {
+            return nil
+        }
+        
+        let avatarSize = CGSize(width: 50, height: 50)
+        let resizedImage = scaleAndCropImage(image, toSize: avatarSize)
+        if let roundedImage = roundImage(image: resizedImage) {
+            return roundedImage
+        }
+        
+        return nil
+    }
+    
     private func startRouteTracking() {
         
         mapView.clear()
@@ -191,6 +215,7 @@ class GMapViewController: UIViewController {
         }
         NotificationConfig.instance.content.title = ""
         isTrackingPosition = false
+        avatarMarker.map = nil
     }
     
     @objc private func stopRecording() {
@@ -265,6 +290,19 @@ class GMapViewController: UIViewController {
         let marker = GMSMarker(position: cameraPosition.target)
         marker.icon = GMSMarker.markerImage(with: color)
         marker.map = mapView
+    }
+    
+    private func addAvatar(at coordinate: CLLocationCoordinate2D) {
+        
+        avatarMarker.map = nil
+        
+        guard let image = resizedAvatarImage
+        else {
+            return
+        }
+        avatarMarker = GMSMarker(position: coordinate)
+        avatarMarker.icon = image
+        avatarMarker.map = mapView
     }
     
     private func addRoutePathPoint(at coordinate: CLLocationCoordinate2D, centered: Bool) {
@@ -343,6 +381,82 @@ class GMapViewController: UIViewController {
                                               options: [])
         UNUserNotificationCenter.current().setNotificationCategories([category])
         content.categoryIdentifier = notificationConfig.categoryId
+    }
+    
+    func scaleAndCropImage(_ image:UIImage, toSize size: CGSize) -> UIImage {
+        
+        guard !image.size.equalTo(size)
+        else {
+            return image
+        }
+
+        let widthFactor = size.width / image.size.width
+        let heightFactor = size.height / image.size.height
+        var scaleFactor: CGFloat = 0.0
+
+        scaleFactor = heightFactor
+
+        if widthFactor > heightFactor {
+            scaleFactor = widthFactor
+        }
+
+        var thumbnailOrigin = CGPoint.zero
+        let scaledWidth  = image.size.width * scaleFactor
+        let scaledHeight = image.size.height * scaleFactor
+
+        if widthFactor > heightFactor {
+            thumbnailOrigin.y = (size.height - scaledHeight) / 2.0
+        } else if widthFactor < heightFactor {
+            thumbnailOrigin.x = (size.width - scaledWidth) / 2.0
+        }
+
+        var thumbnailRect = CGRect.zero
+        thumbnailRect.origin = thumbnailOrigin
+        thumbnailRect.size.width  = scaledWidth
+        thumbnailRect.size.height = scaledHeight
+
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        image.draw(in: thumbnailRect)
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+
+        return scaledImage
+    }
+    
+    private func roundImage(image: UIImage?) -> UIImage? {
+        
+        guard let image = image
+        else {
+            return nil
+        }
+        let imageSize = image.size
+        
+        UIGraphicsBeginImageContextWithOptions(imageSize, false, 0.0)
+        if let context = UIGraphicsGetCurrentContext() {
+            
+            let imageCenterX = imageSize.width/2;
+            let imageCenterY = imageSize.height/2;
+            let radius = imageSize.width/2;
+            
+            context.beginPath()
+            context.addArc(center: CGPoint(x: imageCenterX, y: imageCenterY),
+                           radius: radius,
+                           startAngle: 0,
+                           endAngle: 2 * CGFloat.pi,
+                           clockwise: false)
+            context.closePath()
+            context.clip()
+            
+            let rect = CGRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height)
+            image.draw(in: rect)
+            let croppedImage = UIGraphicsGetImageFromCurrentImageContext()
+            
+            UIGraphicsEndImageContext()
+            return croppedImage
+        }
+        UIGraphicsEndImageContext()
+        
+        return nil
     }
 }
 

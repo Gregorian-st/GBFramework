@@ -10,6 +10,7 @@
 		DBFACFB5D02AB197D7FB0B7E /* Pods_GBFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17F22702373C0AEF4B790D8A /* Pods_GBFramework.framework */; };
 		F42DB43326E4C1A600444035 /* SecurityConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42DB43226E4C1A600444035 /* SecurityConfig.swift */; };
 		F42DB43526E4E46300444035 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42DB43426E4E46300444035 /* LocationManager.swift */; };
+		F44400D726FB73D700F19E8B /* AvatarStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44400D626FB73D700F19E8B /* AvatarStorageService.swift */; };
 		F454D3A226D8119F00DCD27D /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F454D3A126D8119F00DCD27D /* CoreDataService.swift */; };
 		F474FCE226D7E330008DEA6B /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F474FCE126D7E330008DEA6B /* MainRouter.swift */; };
 		F49064B526D529F200D9C232 /* GBFramework.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F49064B326D529F200D9C232 /* GBFramework.xcdatamodeld */; };
@@ -42,6 +43,7 @@
 		F42DB42A26E2460700444035 /* RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F42DB43226E4C1A600444035 /* SecurityConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityConfig.swift; sourceTree = "<group>"; };
 		F42DB43426E4E46300444035 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		F44400D626FB73D700F19E8B /* AvatarStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarStorageService.swift; sourceTree = "<group>"; };
 		F454D3A126D8119F00DCD27D /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		F474FCE126D7E330008DEA6B /* MainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRouter.swift; sourceTree = "<group>"; };
 		F49064B426D529F200D9C232 /* GBFramework.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GBFramework.xcdatamodel; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 		F454D3A026D8117600DCD27D /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				F44400D626FB73D700F19E8B /* AvatarStorageService.swift */,
 				F454D3A126D8119F00DCD27D /* CoreDataService.swift */,
 			);
 			path = Service;
@@ -365,6 +368,7 @@
 				F4F8248426CD5A5300878FC1 /* SceneDelegate.swift in Sources */,
 				F49064B926D551DA00D9C232 /* Alerting.swift in Sources */,
 				F42DB43526E4E46300444035 /* LocationManager.swift in Sources */,
+				F44400D726FB73D700F19E8B /* AvatarStorageService.swift in Sources */,
 				F49064B726D52B1400D9C232 /* GMapStoredPath.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

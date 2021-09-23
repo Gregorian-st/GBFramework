@@ -15,9 +15,10 @@ final class MainRouter: BaseRouter {
         show(controller, style: .root)
     }
     
-    func showGMap() {
+    func showGMap(avatarImage: UIImage?) {
         
         let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(GMapViewController.self)
+        (controller as GMapViewController).avatarImage = avatarImage
         show(controller, style: .push(animated: true))
     }
 }
