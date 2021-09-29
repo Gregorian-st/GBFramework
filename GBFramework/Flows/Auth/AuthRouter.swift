@@ -9,9 +9,10 @@ import UIKit
 
 final class AuthRouter: BaseRouter {
     
-    func showMain() {
+    func showMain(login: String) {
         
         let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(MenuViewController.self)
+        (controller as MenuViewController).userName = login
         let navigationController = UINavigationController(rootViewController: controller)
         show(navigationController, style: .root)
     }

@@ -102,7 +102,7 @@ class LoginViewController: UIViewController {
             return
         }
         if dataService.authLogin(login: loginText, password: passwordText) {
-            router.showMain()
+            router.showMain(login: loginText)
         } else {
             showAlert(alertMessage: "Wrong credentials!", viewController: self)
         }
