@@ -73,7 +73,13 @@ class LoginViewController: UIViewController {
                 usernameTextField.rx.text,
                 passwordTextField.rx.text)
             .map { username, password in
-                return !(username ?? "").trimmingCharacters(in: [" "]).isEmpty && (password ?? "").count >= SecurityConfig.minPasswordLength
+                guard let usernameTrimmed = username?.trimmingCharacters(in: [" "]),
+                      let passwordUnwrapped = password
+                else {
+                    return false
+                }
+                
+                return !usernameTrimmed.isEmpty && passwordUnwrapped.count >= SecurityConfig.minPasswordLength
             }
             .bind { [weak loginButton] isValidLoginInput in
                 loginButton?.isEnabled = isValidLoginInput
